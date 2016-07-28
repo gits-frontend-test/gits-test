@@ -1,0 +1,74 @@
+﻿body {
+    width:100%;
+    overflow-x:hidden;
+}
+
+header{
+    width:100%;
+    background-color:white;
+}
+
+section{
+    width:100%;
+    height:auto;
+    background-color:whitesmoke;
+    padding-top:2%;
+    padding-bottom:2%;
+    padding-left:5%;
+}
+
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loginBox{
+    margin: auto;
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background-color:white;
+}
+
+.input {
+   margin:2%;
+   text-align:center;
+}
+
+.headerMenu{
+    padding-top:1%;
+    padding-bottom:1%;
+    padding-left:5%;
+    padding-right:5%;
+}
+
+.row li {
+     width: 33.3%;
+     float: left;
+     list-style-type:none;
+}
+
+h1{
+    text-align:center;
+    padding:10%;
+}
+
+#rudr_instafeed{
+    list-style:none  
+}
+
+#rudr_instafeed li{
+    float:left;
+    width:250px;
+    height:250px;
+    margin:10px;
+}        
+
+#rudr_instafeed li img{
+    max-width:100%;
+    max-height:100%;
+}

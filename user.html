@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Instagram</title>
+    <link rel="shortcut icon" href="images/instagram_logo.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- Bootstrap JS -->
+    <script src="js/bootstrap.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body style="background-color:whitesmoke">
+    <header>
+        <div class="row headerMenu">
+            <div id="small-img" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
+                <ul>
+                    <li>
+                        <a href="timeline.html"><img src="images/instagram_icon.png" class="img-responsive inline-block" width="50" /></a>
+                    </li>
+                    <li>
+                        <img src="images/instagram_text.png" class="img-responsive inline-block" width="150" />
+                    </li>
+                    <li>
+                        <a href="user.html"><img src="images/instagram_user.png" class="img-responsive inline-block" width="50" /></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <section>
+        <!--show detail user-->
+            <div class="row" style="margin-left:10%; margin-bottom:20px">
+                <img id="profile_picture" src="" class="img-circle" style="float:left; margin-right:30px" width="150" />
+                <div class="content-heading">
+                    <h2 id="username"></h2>
+                    <h4 id="full_name"></h4>
+                    <h4 id="bio"></h4>
+                    <h4 id="website"></h4>
+                    <h4 id="media"></h4>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        <!--end show detail user-->
+
+        <!--show timeline user--> 
+            <ul id="rudr_instafeed"></ul>
+        <!--end show timeline user--> 
+    </section>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var token = '496824580.a2ada3a.406a68d4c99744169f3d791b4761ba4a', //access token
+            num_photos = 10; // total images to show
+
+            // function to show detail user
+            $.ajax({
+                url: 'https://api.instagram.com/v1/users/self',
+                dataType: 'jsonp',
+                type: 'GET',
+                data: { access_token: token },
+                success: function (data) {
+                    var username = data.data.username;
+                    var full_name = data.data.full_name;
+                    var bio = data.data.bio;
+                    var website = data.data.website;
+                    var profile_picture = data.data.profile_picture;
+                    var media = data.data.counts.media;
+                    var followed_by = data.data.counts.followed_by;
+                    var follows = data.data.counts.follows;
+
+                    $('#profile_picture').attr('src', profile_picture);
+                    $('#username').text(username);
+                    $('#full_name').text(full_name);
+                    $('#bio').text(bio);
+                    $('#website').text(website);
+                    $('#media').text(media + ' posts ' + followed_by + ' followers ' + follows + ' following ');
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+
+            // function to show timeline user
+            $.ajax({
+                url: 'https://api.instagram.com/v1/users/self/media/recent',
+                dataType: 'jsonp',
+                type: 'GET',
+                data: { access_token: token, count: num_photos },
+                success: function (data) {
+                    console.log(data);
+                    for (x in data.data) {
+                        $('#rudr_instafeed').append('<li><img src="' + data.data[x].images.low_resolution.url + '"></li>');
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
